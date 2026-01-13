@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Concierge - Premium Vehicle Transport Platform</title>
+    <meta name="description"
+        content="White-label vehicle pickup & delivery platform. Like Uber for car transport. Live in 2 weeks.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f97316;
+            --primary-glow: rgba(249, 115, 22, 0.4);
+            --dark: #0a0a0a;
+            --dark-card: #141414;
+            --dark-border: #262626;
+            --light: #fafafa;
+            --gray: #a3a3a3;
+            --success: #22c55e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Animated background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(249, 115, 22, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 20px 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--light);
+        }
+
+        .cta-btn {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 12px 28px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px var(--primary-glow);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: -20%;
+            width: 80%;
+            height: 100%;
+            background: url('hero-car.png') center/cover no-repeat;
+            opacity: 0.6;
+            mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
+            -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 650px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+
+        .hero-tag::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-secondary {
+            color: var(--light);
+            padding: 12px 28px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--dark-border);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gray);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--dark-border);
+        }
+
+        .stat h3 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .stat p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        /* Features */
+        .features {
+            padding: 120px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.125rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(249, 115, 22, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(249, 115, 22, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 120px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--dark-border), var(--primary));
+        }
+
+        .step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--dark);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin: 0 auto 24px;
+            box-shadow: 0 0 40px var(--primary-glow);
+        }
+
+        .step h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 120px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .pricing-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(180deg, rgba(249, 115, 22, 0.1) 0%, var(--dark-card) 100%);
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 0 60px var(--primary-glow);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .pricing-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--gray);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 32px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--dark-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 100px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .pricing-btn.primary {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        .pricing-btn.secondary {
+            background: transparent;
+            color: var(--light);
+            border: 1px solid var(--dark-border);
+        }
+
+        .pricing-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Contact */
+        .contact {
+            padding: 120px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .contact-info h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+        }
+
+        .contact-info p {
+            color: var(--gray);
+            font-size: 1.125rem;
+            margin-bottom: 32px;
+        }
+
+        .contact-bullets {
+            list-style: none;
+        }
+
+        .contact-bullets li {
+            padding: 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 1.125rem;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .contact-form {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            padding: 40px;
+            border-radius: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--dark);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--light);
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group select option {
+            background: var(--dark);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            border-radius: 100px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px var(--primary-glow);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--dark-border);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        footer p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-bg {
+                opacity: 0.3;
+                right: -50%;
+                width: 100%;
+            }
+
+            .features-grid,
+            .pricing-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .steps::before {
+                display: none;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-gradient"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">Auto<span>Concierge</span></div>
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact" class="cta-btn">Request Demo</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-tag">🚀 Production Ready</div>
+                <h1>Your Own <span class="gradient-text">Vehicle Transport</span> Platform</h1>
+                <p>Complete white-label mobile app for vehicle pickup & delivery. Like Uber, but for getting cars to and
+                    from the shop.</p>
+                <div class="hero-ctas">
+                    <a href="#contact" class="cta-btn">Get Started →</a>
+                    <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <h3>35+</h3>
+                        <p>Screens Built</p>
+                    </div>
+                    <div class="stat">
+                        <h3>4</h3>
+                        <p>User Roles</p>
+                    </div>
+                    <div class="stat">
+                        <h3>2 Weeks</h3>
+                        <p>To Launch</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Everything You Need</h2>
+                <p>A complete platform with enterprise-grade infrastructure, ready to deploy.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>4 User Roles</h3>
+                    <p>Customer, Driver, Shop, and Owner apps with dedicated dashboards and workflows.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>Live GPS Tracking</h3>
+                    <p>Uber-like real-time tracking with speed, ETA, and road-following routes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💳</div>
+                    <h3>Stripe Payments</h3>
+                    <p>Complete payment processing with tips, subscriptions, and cancellation fees.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <h3>Vehicle Inspection</h3>
+                    <p>7-photo + video documentation system for complete liability protection.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Push Notifications</h3>
+                    <p>Automated alerts at every stage — booking, arrival, delivery, and more.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍💼</div>
+                    <h3>Driver Management</h3>
+                    <p>Application workflow, document verification, and payout tracking built in.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>A seamless experience from booking to delivery.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Customer Books</h3>
+                    <p>Pick address, choose shop, select date/time, pay via Stripe</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Driver Accepts</h3>
+                    <p>Driver gets notification, accepts job, navigates to pickup</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Live Tracking</h3>
+                    <p>Customer tracks vehicle in real-time during transport</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Shop Confirms</h3>
+                    <p>Shop receives car, triggers return when service is complete</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Simple Pricing</h2>
+                <p>Choose the model that fits your business.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-label">Starter</div>
+                    <h3>License + Setup</h3>
+                    <div class="price">$15K<span> one-time</span></div>
+                    <ul class="pricing-features">
+                        <li>Full source code</li>
+                        <li>Your branding applied</li>
+                        <li>App Store deployment</li>
+                        <li>Firebase setup</li>
+                        <li>30-day support</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn secondary">Contact Sales</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-label">Most Popular</div>
+                    <h3>Managed SaaS</h3>
+                    <div class="price">$999<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li>Everything in Starter</li>
+                        <li>Hosting included</li>
+                        <li>Ongoing updates</li>
+                        <li>Priority support</li>
+                        <li>Custom features</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn primary">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-label">Enterprise</div>
+                    <h3>Full Partnership</h3>
+                    <div class="price">Custom</div>
+                    <ul class="pricing-features">
+                        <li>Multi-market license</li>
+                        <li>API integrations</li>
+                        <li>White-glove setup</li>
+                        <li>Dedicated success manager</li>
+                        <li>Revenue share options</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn secondary">Let's Talk</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Ready to Launch?</h2>
+                    <p>Fill out the form and we'll schedule a demo. Most clients are live within 2 weeks.</p>
+                    <ul class="contact-bullets">
+                        <li>📞 15-minute demo call</li>
+                        <li>💻 See the app in action</li>
+                        <li>📋 Custom quote for your market</li>
+                    </ul>
+                </div>
+                <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" name="name" required placeholder="John Smith">
+                    </div>
+                    <div class="form-group">
+                        <label>Business Email</label>
+                        <input type="email" name="email" required placeholder="john@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Business Type</label>
+                        <select name="business_type" required>
+                            <option value="">Select your business</option>
+                            <option value="dealership">Auto Dealership</option>
+                            <option value="mechanic">Mechanic Shop</option>
+                            <option value="tire">Tire/Lube Shop</option>
+                            <option value="fleet">Fleet Management</option>
+                            <option value="startup">Startup/Entrepreneur</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Locations</label>
+                        <select name="locations">
+                            <option value="1">1 location</option>
+                            <option value="2-5">2-5 locations</option>
+                            <option value="6-20">6-20 locations</option>
+                            <option value="20+">20+ locations</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message (Optional)</label>
+                        <textarea name="message" rows="3" placeholder="Tell us about your needs..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Request Demo →</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="logo" style="margin-bottom: 16px;">Auto<span>Concierge</span></div>
+            <p>© 2026 Auto Concierge. Production-ready vehicle transport platform.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
